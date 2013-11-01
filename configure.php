@@ -3,14 +3,14 @@
 
 </head>
 
-<body>
+<body> 
 	<h3>Add New Cuisine</h3>
 	<?php
 	// if form submitted
 	//process form input
 	if (isset($_POST['submit'])) {
 		//attempt connection to MySQL
-		$mysqli = new mysqli("localhost", "root","","testify");
+		$mysqli = new mysqli("localhost", "root","","Tastify");
 		if ($mysqli == false) {
 			die("Error: Could not connect. " . mysql_connect_error());
 		} else {
@@ -28,46 +28,38 @@
 		} else {
 			$name = $mysqli->escape_string($_POST['cuisine_name']);
 		}
+		if ($inputError != true && empty($_POST['diner_id'])) {
+			echo "Enter valid diner plz";
+			$inputError = true;
+		} else {
+			$diner_id = $mysqli->escape_string($_POST['diner_id']);
+		}
 		if ($inputError != true && empty($_POST['cuisine_type'])) {
-			echo "Enter valid name plz";
+			echo "Enter valid type plz";
 			$inputError = true;
 		} else {
 			$type = $mysqli->escape_string($_POST['cuisine_type']);
 		}
 		if ($inputError != true && empty($_POST['cuisine_price'])) {
-			echo "Enter valid name plz";
+			echo "Enter valid price plz";
 			$inputError = true;
 		} else {
 			$price = $mysqli->escape_string($_POST['cuisine_price']);
 		}
-		if ($inputError != true && empty($_POST['cuisine_option_vegi'])) {
-			echo "Enter valid name plz";
-			$inputError = true;
-		} else {
+		
 			$vegi = $mysqli->escape_string($_POST['cuisine_option_vegi']);
-		}
-		if ($inputError != true && empty($_POST['cuisine_option_light'])) {
-			echo "Enter valid name plz";
-			$inputError = true;
-		} else {
+		
+		
 			$light = $mysqli->escape_string($_POST['cuisine_option_light']);
-		}
-		if ($inputError != true && empty($_POST['cuisine_option_hot'])) {
-			echo "Enter valid name plz";
-			$inputError = true;
-		} else {
+		
 			$hot = $mysqli->escape_string($_POST['cuisine_option_hot']);
-		}
-		if ($inputError != true && empty($_POST['cuisine_option_share'])) {
-			echo "Enter valid name plz";
-			$inputError = true;
-		} else {
+		
 			$share = $mysqli->escape_string($_POST['cuisine_option_share']);
-		}
+		
 		
 
-		$sql = "INSERT INTO menu (cuisine_name, cuisine_type, cuisine_price, cuisine_option_vegi, cuisine_option_light, cuisine_option_hot, cuisine_option_share) 
-			VALUES ('$name','$type',$price,$vegi,$light,$hot,$share);";
+		$sql = "INSERT INTO cuisine_db (diner_id,name,type,price,option_vegi,option_light,option_hot,option_share) 
+			VALUES (1,'$name','$type',$price,$vegi,$light,$hot,$share);";
 
 		if ($mysqli->query($sql) == true) {
 			echo "New cuisine added with ID: " . $mysqli->insert_id;
@@ -85,6 +77,8 @@
 	</div>
 
 	<form action="configure.php" method="POST">
+		Diner  :Varsity<br \>
+		<p />
 		Cuisine Name <br \>
 		<input type="text" name="cuisine_name" size="40" />
 		<p />
@@ -111,11 +105,11 @@
 
 	<?php
 	//Attempy query execution
-	$sql = "select * from menu";
+	$sql = "select * from cuisine_db";
 	if ($result = $mysqli->query($sql)) {
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_array()) {
-				echo $row[0] . " " . $row[1] . " "  . $row[2] . " "  . $row[3] . "<br>";
+				echo $row[0] . " " . $row[2] . " "  . $row[3] . " "  . $row[4] . "<br>";
 			}
 			$result->close();
 		} else {
@@ -128,6 +122,6 @@
 	//close connection
 	$mysqli->close() ;
 	?>
+</body> 
 
-</body>
 </html>

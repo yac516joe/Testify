@@ -1,12 +1,14 @@
 <?php
 //attempt database connection
-$mysqli = new mysqli("localhost", "root","","testify");
+$mysqli = new mysqli("localhost", "root","","Tastify");
 if ($mysqli == false) {
 	die("Error: Could not connect. " . mysql_connect_error());
-} 
+} else {
+			echo "Connection Success";
+		}
 
 //Attempy query execution
-$sql = "select * from menu";
+$sql = "select * from cuisine_db";
 if ($result = $mysqli->query($sql)) {
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_array()) {
