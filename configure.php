@@ -54,12 +54,12 @@
 		
 			$hot = $mysqli->escape_string($_POST['cuisine_option_hot']);
 		
-			$share = $mysqli->escape_string($_POST['cuisine_option_share']);
+			
 		
 		
 
-		$sql = "INSERT INTO cuisine_db (diner_id,name,type,price,option_vegi,option_light,option_hot,option_share) 
-			VALUES (1,'$name','$type',$price,$vegi,$light,$hot,$share);";
+		$sql = "INSERT INTO cuisine_db (diner_id,name,type,price,option_vegi,option_light,option_hot) 
+			VALUES (1,'$name','$type',$price,$vegi,$light,$hot);";
 
 		if ($mysqli->query($sql) == true) {
 			echo "New cuisine added with ID: " . $mysqli->insert_id;
@@ -96,9 +96,7 @@
 		<p />
 		Hot? <br \>
 		<input type="text" name="cuisine_option_hot" size="40" />
-		<p />
-		Share? <br \>
-		<input type="text" name="cuisine_option_share" size="40" />
+		
 		<p />
 		<input type="submit" name="submit" value="Submit" />
 	</form>
