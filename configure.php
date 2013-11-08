@@ -53,13 +53,19 @@
 			$light = $mysqli->escape_string($_POST['cuisine_option_light']);
 		
 			$hot = $mysqli->escape_string($_POST['cuisine_option_hot']);
+
+			$addon = $mysqli->escape_string($_POST['addon']);
+
+			$addon_name = $mysqli->escape_string($_POST['addon_name']);
+
+			$addon_price = $mysqli->escape_string($_POST['addon_price']);
 		
 			
 		
 		
 
-		$sql = "INSERT INTO cuisine_db (diner_id,name,type,price,option_vegi,option_light,option_hot) 
-			VALUES (1,'$name','$type',$price,$vegi,$light,$hot);";
+		$sql = "INSERT INTO cuisine_db (diner_id,name,type,price,option_vegi,option_light,option_hot,option_addon,option_addon_obj,option_addon_prc) 
+			VALUES (1,'$name','$type',$price,$vegi,$light,$hot,$addon,'$addon_name',$addon_price);";
 
 		if ($mysqli->query($sql) == true) {
 			echo "New cuisine added with ID: " . $mysqli->insert_id;
@@ -96,7 +102,18 @@
 		<p />
 		Hot? <br \>
 		<input type="text" name="cuisine_option_hot" size="40" />
-		
+		<p />
+
+		Addon? <br \>
+		<input type="text" name="addon" size="40" />
+		<p />
+
+		Addon Name? <br \>
+		<input type="text" name="addon_name" size="40" />
+		<p />
+
+		Addon Price? <br \>
+		<input type="text" name="addon_price" size="40" />
 		<p />
 		<input type="submit" name="submit" value="Submit" />
 	</form>
