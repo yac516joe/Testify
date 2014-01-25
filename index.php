@@ -73,10 +73,22 @@
     <?php
   //Attempy query execution
   $sql = "select * from categories_db";
+  $sql2;
+  $tmp;
+  $tmp2;
+
   if ($result = $mysqli->query($sql)) {
     if ($result->num_rows > 0) {
       while($row = $result->fetch_array()) {
-        echo  "<div data-role='collapsible'><h4>" . $row[1] . "</h4></div>";
+        echo  "<div data-role='collapsible'><h4>" . $row[1] . "</h4>";
+        echo "<ul data-role='listview'>";
+        $sql2 = "select * from cuisine_db where category = " . $row[0];
+        if ($tmp = $mysqli->query($sql2)) {
+          while ($tmp2 = $tmp->fetch_array()) {
+            echo "<li><a href='#'>" . $tmp2[2] . "</a></li>";
+          }
+        }
+        echo "</ul></div>";
       }
       $result->close();
     } else {
