@@ -207,7 +207,7 @@ class OpenSlopeOne
      * @param int $limit
      * @return array
      */
-    public function getRecommendedItemsById($itemId, $limit = 20)
+    public function getRecommendedItemsById($itemId, $limit = 10)
     {
         $sql = 'select item_id2 from slope_one where item_id1 = '
              . $itemId
@@ -223,7 +223,7 @@ class OpenSlopeOne
      * @param int $limit
      * @return array
      */
-    public function getRecommendedItemsByUser($userId, $limit = 20)
+    public function getRecommendedItemsByUser($userId, $limit = 10)
     {
         $sql = 'select s.item_id2 from slope_one s,rating_db u where u.user_id = '
              . $userId
