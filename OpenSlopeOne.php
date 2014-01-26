@@ -215,6 +215,7 @@ class OpenSlopeOne
              . $limit;
         return  $this->_db->fetchCol($sql);
     }
+
     
     /**
      * Get recommended items by user's id
