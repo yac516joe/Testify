@@ -7,9 +7,6 @@
 </head>
 <body>
 
-    
-
-
 <! -- Index Tab -- >
 <div data-role="page" id="index">
   <div data-role="header">
@@ -20,38 +17,15 @@
 
   <div data-role="content">
     <a href=""> Index Page</a>
-     <?php
+ 
+    <?php
       $mysqli = new mysqli("localhost", "root","","Tastify");
         if ($mysqli == false) {
           die("Error: Could not connect. " . mysql_connect_error());
         } else {
           echo "<br>" . "Connection Success" . "<br>";
         }
-    ?>   
- 
-  </div>
-
-  <div data-role="footer">
-    <div data-role="navbar">
-      <ul>
-        <li> <a href="#surprise" data-role="button" data-icon="star"> Surprise Me !</a> </li>
-        <li> <a href="#menu-hot" data-role="button" data-icon="info"> Check the Menu</a> </li>
-      </ul>
-    </div>  
-  </div>
-</div> 
-
-<! -- Menu Tab HOT -- >
-<div data-role="page" id="1">
-  <div data-role="header">
-    <a href="" data-role="button" data-icon="info" data-iconpos="notext">Personal Profile</a>
-    <h1>Tastify</h1>
-    <a href="" data-role="button" data-icon="gear" data-iconpos="notext">Setting</a>
-  </div>
-
-  <div data-role="content">
-    <a href=""> 1</a>
- 
+    ?>    
   </div>
 
   <div data-role="footer">
@@ -69,7 +43,7 @@
   <div data-role="header">
     <a href="#index" data-role="button" data-icon="arrow-l" data-iconpos="notext">Back to Index</a>
     <h1>Recommendation based on your preference</h1>
-    <a href="#menu-hot" data-role="button" data-icon="info" >Check the Menu</a>
+    <a href="#menu-hottest" data-role="button" data-icon="info" >Check the Menu</a>
   </div>
 
   <div data-role="content">
@@ -104,9 +78,7 @@
     </div>  
   </div>
 
-</div>
-
-<! -- Menu Tab HOT -- >
+<! -- Menu Tab -- >
 <div data-role="page" id="menu-hot">
   <div data-role="header">
     <a href="#index" data-role="button" data-icon="arrow-l" data-iconpos="notext">Back to Index</a>
@@ -152,7 +124,7 @@
 
 </div> 
 
-<! -- Menu Tab FULL -- >
+
 <div data-role="page" id="menu-full">
   <div data-role="header">
     <a href="#index" data-role="button" data-icon="arrow-l" data-iconpos="notext">Back to Index</a>
@@ -197,7 +169,7 @@
   <div data-role="footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
-        <li> <a href="#menu-hot"> Hottest</a> </li>
+        <li> <a href="#menu-hottest"> Hottest</a> </li>
         <li> <a href="" class="ui-btn-active ui-state-persist"f> Menu</a> </li>
       </ul>
     </div>  
