@@ -89,7 +89,7 @@ CREATE TABLE diner_db (
 CREATE TABLE rating(user_id INT(3)  NOT NULL,FOREIGN KEY (user_id) REFERENCES user_db(id),cuisine_id INT(3) NOT NULL,FOREIGN KEY (cuisine_id) REFERENCES cuisine_db(id),rating INT NOT NULL,date_stamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (user_id ,cuisine_id)); 
 
     CREATE TABLE IF NOT EXISTS `rating_db` (
-      `user_id` int(3) NOT NULL,FOREIGN KEY (user_id) REFERENCES user_db(id),
+      `user_id` int(3) NOT NULL,FOREIGN KEY (uc_users) REFERENCES user_db(id),
       `cuisine_id` int(3) NOT NULL,FOREIGN KEY (cuisine_id) REFERENCES cuisine_db(id),
       `rating` decimal(11,2) NOT NULL default '0.00',
       KEY `item_id` (`cuisine_id`),

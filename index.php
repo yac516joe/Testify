@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+<title>Tastify</title> 
+<link rel="stylesheet" href="./css/jquery.mobile-1.3.1.css">
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 </head>
+
 <body>
-
-    
-
 
 <! -- Index Tab -- >
 <div data-role="page" id="index">
   <div data-role="header">
-    <a href="" data-role="button" data-icon="info" data-iconpos="notext">Personal Profile</a>
+    <a href="#reg" data-role="button" data-icon="info" data-iconpos="notext">Personal Profile</a>
     <h1>Tastify</h1>
     <a href="" data-role="button" data-icon="gear" data-iconpos="notext">Setting</a>
   </div>
 
   <div data-role="content">
-    <a href=""> Index Page</a>
+    <a href="register.php">Register</a>
      <?php
       $mysqli = new mysqli("localhost", "root","","Tastify");
         if ($mysqli == false) {
@@ -31,30 +30,7 @@
  
   </div>
 
-  <div data-role="footer">
-    <div data-role="navbar">
-      <ul>
-        <li> <a href="#surprise" data-role="button" data-icon="star"> Surprise Me !</a> </li>
-        <li> <a href="#menu-hot" data-role="button" data-icon="info"> Check the Menu</a> </li>
-      </ul>
-    </div>  
-  </div>
-</div> 
-
-<! -- Menu Tab HOT -- >
-<div data-role="page" id="1">
-  <div data-role="header">
-    <a href="" data-role="button" data-icon="info" data-iconpos="notext">Personal Profile</a>
-    <h1>Tastify</h1>
-    <a href="" data-role="button" data-icon="gear" data-iconpos="notext">Setting</a>
-  </div>
-
-  <div data-role="content">
-    <a href=""> 1</a>
- 
-  </div>
-
-  <div data-role="footer">
+  <div data-role="footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
         <li> <a href="#surprise" data-role="button" data-icon="star"> Surprise Me !</a> </li>
@@ -103,7 +79,6 @@
     <div data-role="navbar">
     </div>  
   </div>
-
 </div>
 
 <! -- Menu Tab HOT -- >
@@ -202,10 +177,7 @@
       </ul>
     </div>  
   </div>
-
+  
 </div> 
-
-</div> 
-
 </body>
 </html>
