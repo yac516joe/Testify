@@ -13,10 +13,19 @@
 <! -- Index Tab -- >
 <div data-role="page" id="index">
   <div data-role="header">
-    <a href="#reg" data-role="button" data-icon="info" data-iconpos="notext">Personal Profile</a>
+    <a href="#panel-01" data-role="button" data-icon="arrow-l" data-iconpos="notext">Personal Profile</a>
     <h1>Tastify</h1>
-    <a href="" data-role="button" data-icon="gear" data-iconpos="notext">Setting</a>
   </div>
+
+  <div class="panel left" data-role="panel" data-position="left" data-display="reveal" id="panel-01">  
+    <ul>
+      <li><a href="" data-icon="plus">Favorites</a></li>
+      <li><a href="" data-icon="plus">History</a></li>
+      <li><a href="#account" data-rel="dialog" data-icon="plus">Account</a></li>
+      <li><a href="logout.php" data-icon="star" action="logout.php">Log Out</a></li>
+      <li><a href="" data-icon="alert">Report A Problem</a></li>
+    </ul> 
+  </div> 
 
   <div data-role="content">
     <a href="">Log In Success!</a><br>
@@ -44,9 +53,6 @@
         echo "Error: could not execute $sql. " . $mysqli->error;
       }
     ?>   
-    <a href="logout.php" action="logout.php">Log Out</a>
-    
- 
   </div>
 
   <div data-role="footer" data-position="fixed">
@@ -63,8 +69,8 @@
 <! -- Surprise Tab -- >
 <div data-role="page" id="surprise">
   <div data-role="header">
-    <a href="#index" data-role="button" data-icon="arrow-l" data-iconpos="notext">Back to Index</a>
-    <h1>Your Personal Recommendation, <?php echo $fname ?> ;)</h1>
+    <a href="#index" data-role="button" data-icon="home" data-iconpos="notext">Back to Index</a>
+    <h1>Try this, <?php echo $fname ?> ;)</h1>
     <a href="#menu-hot" data-role="button" data-icon="info" >Check the Menu</a>
   </div>
 
@@ -104,8 +110,8 @@
 <! -- Menu Tab HOT -- >
 <div data-role="page" id="menu-hot">
   <div data-role="header">
-    <a href="#index" data-role="button" data-icon="arrow-l" data-iconpos="notext">Back to Index</a>
-    <h1>Hottest Items</h1>
+    <a href="#index" data-role="button" data-icon="home" data-iconpos="notext">Back to Index</a>
+    <h1>Varsity Top 10</h1>
     <a href="#surprise" data-role="button" data-icon="star" >Surpise Me!</a>
   </div>
 
@@ -115,7 +121,8 @@
       $sql = "select item_id, count(item_id) as cnt
               from rating_db 
               group by item_id
-              order by cnt desc";
+              order by cnt desc
+              limit 10";
       $sql2;
       $tmp;
       $tmp2;
@@ -139,7 +146,7 @@
   <div data-role="footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
-        <li> <a href="" class="ui-btn-active ui-state-persist"> Hottest</a> </li>
+        <li> <a href="" class="ui-btn-active ui-state-persist"> Top 10</a> </li>
         <li> <a href="#menu-full"> Menu</a> </li>
       </ul>
     </div>  
@@ -150,7 +157,7 @@
 <! -- Menu Tab FULL -- >
 <div data-role="page" id="menu-full">
   <div data-role="header">
-    <a href="#index" data-role="button" data-icon="arrow-l" data-iconpos="notext">Back to Index</a>
+    <a href="#index" data-role="button" data-icon="home" data-iconpos="notext">Back to Index</a>
     <h1>82 Dishes in Total</h1>
     <a href="#surprise" data-role="button" data-icon="star" >Surpise Me!</a>
   </div>
@@ -183,21 +190,33 @@
   } else {
     echo "Error: could not execute $sql. " . $mysqli->error;
   }
-
   ?>
-
-
   </div>
 
   <div data-role="footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
-        <li> <a href="#menu-hot"> Hottest</a> </li>
+        <li> <a href="#menu-hot"> Top 10</a> </li>
         <li> <a href="" class="ui-btn-active ui-state-persist"f> Menu</a> </li>
       </ul>
     </div>  
   </div>
+</div>
   
+  <! -- Account Tab -- >
+<div data-role="page" id="account">
+  <div data-role="header">
+    <h1>Account Setting</h1>
+  </div>
+
+  <div data-role="content">
+    <a href="update.php" data-rel="dialog" data-role="button">Change Password</a>
+  </div>
+
+</div> 
+
+
+
 </div> 
 </body>
 </html>

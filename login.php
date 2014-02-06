@@ -14,6 +14,7 @@
 
 	<div data-role="page" id="login">
 	  <div data-role="header">
+	  	<a href="#index" data-role="button" data-icon="home" data-iconpos="notext">Back to Index</a>
 	    <h1>Log In</h1>
 	  </div>
 
@@ -31,7 +32,7 @@
 			$pw = $mysqli->escape_string($_POST['password']);
 			$sha = sha1(strip_tags(stripslashes(mysql_real_escape_string($pw))));
 
-			$sql = "SELECT * FROM user_db where email = '$email' and password = '$pw'";
+			$sql = "SELECT * FROM user_db where email = '$email' and password = '$sha'";
 			$result = mysqli_query($dbc, $sql);
 
 			if ($email != null && $pw != null) {

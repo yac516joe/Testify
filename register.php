@@ -12,6 +12,7 @@
 	<! -- User Registeration -- >
 	<div data-role="page">
 		<div data-role="header">
+			<a href="#index" data-role="button" data-icon="home" data-iconpos="notext">Back to Index</a>
 			<h1>Register Page</h1>
 		</div>
 		<div data-role="content">	
@@ -95,8 +96,8 @@
 
 					if (mysqli_num_rows($checkResult) == 0) {
 						if ($mysqli->query($sql) == true) {
-								echo "New user added with ID: " . $mysqli->insert_id;
-								
+								echo "Registeration successful";
+								echo '<meta http-equiv=REFRESH CONTENT=1;url=login.php>';
 							} else {
 								echo  $mysqli->error;
 							}
@@ -108,7 +109,7 @@
 			}
 		?>
 
-		<form method="POST" action=""register.php"" id="registerForm">
+		<form method="POST" action="register.php" id="registerForm">
 			<div data-role="fieldcontain">
 				<label for="email">User Name:</label>
 			    <input type="text" name="email" id="email"   placeholder="At least 5 characters long" value="<?php if (!empty($email)) echo $email; ?>">

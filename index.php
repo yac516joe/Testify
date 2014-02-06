@@ -12,21 +12,19 @@
 <! -- Index Tab -- >
 <div data-role="page" id="index">
   <div data-role="header">
-    <a href="#panel-01" data-role="button" data-icon="info" data-iconpos="notext">Personal Profile</a>
+    <a href="#panel-01" data-role="button" data-icon="arrow-l" data-iconpos="notext">Personal Profile</a>
     <h1>Tastify</h1>
-    <a href="" data-role="button" data-icon="gear" data-iconpos="notext">Setting</a>
   </div>
 
-  <div class="panel left" data-role="panel" data-position="left" data-display="push" id="panel-01">  
-    <ul>  
-      <li class="register"><a href="register.php" >Register</a></li>  
-      <li class="lpgin"><a href="login.php" >Log In</a></li>  
-      </ul>  
+  <div class="panel left" data-role="panel" data-position="left" data-display="reveal" id="panel-01">  
+    <ul>
+      <li><a href="register.php"  data-icon="plus">Register</a></li>
+      <li><a href="login.php"  data-icon="star">Log In</a></li>
+      <li><a href=""  data-icon="alert">Report A Problem</a></li>
+    </ul>
   </div>  
 
   <div data-role="content">
-    <a href="register.php" >Register<br></a>
-    <a href="login.php" data-rel="dialog">Log In</a>
      <?php
       $mysqli = new mysqli("localhost", "root","","Tastify");
         if ($mysqli == false) {
@@ -39,69 +37,24 @@
   <div data-role="footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
-        <li> <a href="#surprise" data-role="button" data-icon="star"> Surprise Me !</a> </li>
+        <li> <a href="#surprise" data-role="button" data-icon="star" data-rel="dialog"> Surprise Me !</a> </li>
         <li> <a href="#menu-hot" data-role="button" data-icon="info"> Check the Menu</a> </li>
       </ul>
     </div>  
   </div>
 </div> 
 
-<! -- Log In Pop Up Tab -- >
-
-<div data-role="page" id="login">
-  <div data-role="header">
-    <h1>Log In</h1>
-  </div>
-
-  <div data-role="content">
-    <form method="POST" id="loginForm" action="connect.php">
-      <div data-role="fieldcontain">
-        <label for="email">Username :</label>
-        <input type="text" name="email" id="email">
-      </div>
-      <div data-role="fieldcontain">
-        <label for="password">Password :</label>
-        <input type="password" name="password" id="password">
-      </div>
-      <input type="submit" name="submit" value="Log In">
-    </form>    
-  </div>
-
-</div> 
 
 <! -- Surprise Tab -- >
 <div data-role="page" id="surprise">
   <div data-role="header">
-    <a href="#index" data-role="button" data-icon="arrow-l" data-iconpos="notext">Back to Index</a>
-    <h1>Recommendation based on your preference</h1>
-    <a href="#menu-hot" data-role="button" data-icon="info" >Check the Menu</a>
+    <h1>Sorry :(</h1>
   </div>
 
   <div data-role="content">
-    <ul data-role="listview">
-    <?php
-      require './OpenSlopeOne.php';
-      $slopeone = new OpenSlopeOne();
-    $slopeone->initSlopeOneTable('MySQL');
-
-    $sql = "select s.item_id2 from slope_one s,rating_db u 
-          where u.user_id = 3 
-          and s.item_id1 = u.item_id and s.item_id2 != u.item_id group by s.item_id2 order by sum(u.rating * s.times - s.rating)/sum(s.times) desc limit 10";
-    if ($result = $mysqli->query($sql)) {
-      if ($result->num_rows > 0){
-          while ($row = $result->fetch_array()) {
-            $sql2 = "select name from cuisine_db where id = ". $row[0];
-            if ($tmp = $mysqli->query($sql2)) {
-              if ($tmp2 = $tmp->fetch_array()) {
-                echo "<li><a>". $tmp2[0] . "</a></li>";
-              }
-            }
-          }
-        }
-    }
-
-    ?>  
-  </ul>
+    <h4>This feature require a signed in user account. Please log in or regester a new one</h4>
+    <a href="register.php" data-role="button"> Register</a>
+    <a href="login.php" data-role="button"> Log In</a>
   </div>
 
   <div data-role="footer">
@@ -113,8 +66,8 @@
 <! -- Menu Tab HOT -- >
 <div data-role="page" id="menu-hot">
   <div data-role="header">
-    <a href="#index" data-role="button" data-icon="arrow-l" data-iconpos="notext">Back to Index</a>
-    <h1>Hottest Items</h1>
+    <a href="#index" data-role="button" data-icon="home" data-iconpos="notext">Back to Index</a>
+    <h1>Varsity Top 10</h1>
     <a href="#surprise" data-role="button" data-icon="star" >Surpise Me!</a>
   </div>
 
@@ -124,7 +77,8 @@
       $sql = "select item_id, count(item_id) as cnt
               from rating_db 
               group by item_id
-              order by cnt desc";
+              order by cnt desc
+              limit 10";
       $sql2;
       $tmp;
       $tmp2;
@@ -148,7 +102,7 @@
   <div data-role="footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
-        <li> <a href="" class="ui-btn-active ui-state-persist"> Hottest</a> </li>
+        <li> <a href="" class="ui-btn-active ui-state-persist"> Top 10</a> </li>
         <li> <a href="#menu-full"> Menu</a> </li>
       </ul>
     </div>  
@@ -159,7 +113,7 @@
 <! -- Menu Tab FULL -- >
 <div data-role="page" id="menu-full">
   <div data-role="header">
-    <a href="#index" data-role="button" data-icon="arrow-l" data-iconpos="notext">Back to Index</a>
+    <a href="#index" data-role="button" data-icon="home" data-iconpos="notext">Back to Index</a>
     <h1>82 Dishes in Total</h1>
     <a href="#surprise" data-role="button" data-icon="star" >Surpise Me!</a>
   </div>
@@ -201,7 +155,7 @@
   <div data-role="footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
-        <li> <a href="#menu-hot"> Hottest</a> </li>
+        <li> <a href="#menu-hot"> Top 10</a> </li>
         <li> <a href="" class="ui-btn-active ui-state-persist"f> Menu</a> </li>
       </ul>
     </div>  
