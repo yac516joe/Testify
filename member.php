@@ -28,29 +28,33 @@
   </div> 
 
   <div data-role="content">
-    <a href="">Log In Success!</a><br>
     <?php
       $mysqli = new mysqli("localhost", "root","","Tastify");
       if ($mysqli == false) {
         die("Error: Could not connect. " . mysql_connect_error());
       }
 
-      $username = $_SESSION['username'];
+      if($_SESSION['username'] != null) {
+        $username = $_SESSION['username'];
 
-      $sql = "select * from user_db where email = '$username'";
-      if ($result = $mysqli->query($sql)) {
-        if ($result->num_rows > 0) {
-          while($row = $result->fetch_array()) {
-            echo $row[0] . " " . $row[1] . " "  . $row[3] . " "  . $row[4] . "<br>";
-            $userid= $row[0];
-            $fname = $row[5];
+        $sql = "select * from user_db where email = '$username'";
+        if ($result = $mysqli->query($sql)) {
+          if ($result->num_rows > 0) {
+            while($row = $result->fetch_array()) {
+              echo $row[0] . " " . $row[1] . " "  . $row[3] . " "  . $row[4] . "<br>";
+              $userid= $row[0];
+              $fname = $row[5];
+            }
+            $result->close();
+          } else {
+            echo "No reords matching your query were found.";
           }
-          $result->close();
         } else {
-          echo "No reords matching your query were found.";
+          echo "Error: could not execute $sql. " . $mysqli->error;
         }
       } else {
-        echo "Error: could not execute $sql. " . $mysqli->error;
+        echo "<h1>Please Log In First</h1>";
+        echo '<meta http-equiv=REFRESH CONTENT=1;url=index.php>';
       }
     ?>   
   </div>

@@ -18,9 +18,8 @@
 
   <div class="panel left" data-role="panel" data-position="left" data-display="reveal" id="panel-01">  
     <ul>
-      <li><a href="register.php"  data-icon="plus">Register</a></li>
-      <li><a href="login.php"  data-icon="star">Log In</a></li>
       <li><a href=""  data-icon="alert">Report A Problem</a></li>
+      <li><a href=""  data-icon="alert">About Me</a></li>
     </ul>
   </div>  
 
@@ -37,8 +36,8 @@
   <div data-role="footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
-        <li> <a href="#surprise" data-role="button" data-icon="star" data-rel="dialog"> Surprise Me !</a> </li>
-        <li> <a href="#menu-hot" data-role="button" data-icon="info"> Check the Menu</a> </li>
+        <li><a href="register.php" data-role="button" data-icon="plus">Register</a></li>
+        <li><a href="login.php" data-role="button" data-icon="star">Log In</a></li>
       </ul>
     </div>  
   </div>

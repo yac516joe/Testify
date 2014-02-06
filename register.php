@@ -12,7 +12,7 @@
 	<! -- User Registeration -- >
 	<div data-role="page">
 		<div data-role="header">
-			<a href="#index" data-role="button" data-icon="home" data-iconpos="notext">Back to Index</a>
+			<a href="index.php" data-role="button" data-icon="home" data-iconpos="notext">Back to Index</a>
 			<h1>Register Page</h1>
 		</div>
 		<div data-role="content">	

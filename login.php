@@ -14,7 +14,7 @@
 
 	<div data-role="page" id="login">
 	  <div data-role="header">
-	  	<a href="#index" data-role="button" data-icon="home" data-iconpos="notext">Back to Index</a>
+	  	<a href="index.php" data-role="button" data-icon="home" data-iconpos="notext">Back to Index</a>
 	    <h1>Log In</h1>
 	  </div>
 
