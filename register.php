@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Register Page</title> 
+<title>Registeration Page</title> 
 <link rel="stylesheet" href="./css/jquery.mobile-1.3.1.css">
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
@@ -12,7 +12,6 @@
 	<! -- User Registeration -- >
 	<div data-role="page">
 		<div data-role="header">
-			<a href="index.php" data-rel="back">Home</a>
 			<h1>Register Page</h1>
 		</div>
 		<div data-role="content">	
@@ -50,7 +49,7 @@
 						echo "Your confirmation password dose not match with the 1st one, Please check <br>";
 						$inputError = true;
 					} else {
-						sha1('$password');
+						$sha = sha1(strip_tags(stripslashes(mysql_real_escape_string($password))));
 					}
 				}
 				if ($inputError != true && empty($_POST['gender'])) {
@@ -85,9 +84,10 @@
 					$option_hot = 0;
 				}
 
+
 				if ($inputError == false) {
 					$sql = "INSERT INTO user_db (email,password,gender,fname,lname,option_vegi,option_light,option_hot) 
-						VALUES ('$email','$password','$gender','$fname','$lname','$option_vegi','$option_light','$option_hot');";
+						VALUES ('$email','$sha','$gender','$fname','$lname','$option_vegi','$option_light','$option_hot');";
 
 					$checkUsername = "select * from user_db where email = '$email'";
 					$checkResult = mysqli_query($dbc, $checkUsername);

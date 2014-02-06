@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,27 +13,39 @@
 <! -- Index Tab -- >
 <div data-role="page" id="index">
   <div data-role="header">
-    <a href="#panel-01" data-role="button" data-icon="info" data-iconpos="notext">Personal Profile</a>
+    <a href="#reg" data-role="button" data-icon="info" data-iconpos="notext">Personal Profile</a>
     <h1>Tastify</h1>
     <a href="" data-role="button" data-icon="gear" data-iconpos="notext">Setting</a>
   </div>
 
-  <div class="panel left" data-role="panel" data-position="left" data-display="push" id="panel-01">  
-    <ul>  
-      <li class="register"><a href="register.php" >Register</a></li>  
-      <li class="lpgin"><a href="login.php" >Log In</a></li>  
-      </ul>  
-  </div>  
-
   <div data-role="content">
-    <a href="register.php" >Register<br></a>
-    <a href="login.php" data-rel="dialog">Log In</a>
-     <?php
+    <a href="">Log In Success!</a><br>
+    <?php
       $mysqli = new mysqli("localhost", "root","","Tastify");
-        if ($mysqli == false) {
-          die("Error: Could not connect. " . mysql_connect_error());
-        } 
+      if ($mysqli == false) {
+        die("Error: Could not connect. " . mysql_connect_error());
+      }
+
+      $username = $_SESSION['username'];
+
+      $sql = "select * from user_db where email = '$username'";
+      if ($result = $mysqli->query($sql)) {
+        if ($result->num_rows > 0) {
+          while($row = $result->fetch_array()) {
+            echo $row[0] . " " . $row[1] . " "  . $row[3] . " "  . $row[4] . "<br>";
+            $userid= $row[0];
+            $fname = $row[5];
+          }
+          $result->close();
+        } else {
+          echo "No reords matching your query were found.";
+        }
+      } else {
+        echo "Error: could not execute $sql. " . $mysqli->error;
+      }
     ?>   
+    <a href="logout.php" action="logout.php">Log Out</a>
+    
  
   </div>
 
@@ -46,34 +59,12 @@
   </div>
 </div> 
 
-<! -- Log In Pop Up Tab -- >
-
-<div data-role="page" id="login">
-  <div data-role="header">
-    <h1>Log In</h1>
-  </div>
-
-  <div data-role="content">
-    <form method="POST" id="loginForm" action="connect.php">
-      <div data-role="fieldcontain">
-        <label for="email">Username :</label>
-        <input type="text" name="email" id="email">
-      </div>
-      <div data-role="fieldcontain">
-        <label for="password">Password :</label>
-        <input type="password" name="password" id="password">
-      </div>
-      <input type="submit" name="submit" value="Log In">
-    </form>    
-  </div>
-
-</div> 
 
 <! -- Surprise Tab -- >
 <div data-role="page" id="surprise">
   <div data-role="header">
     <a href="#index" data-role="button" data-icon="arrow-l" data-iconpos="notext">Back to Index</a>
-    <h1>Recommendation based on your preference</h1>
+    <h1>Your Personal Recommendation, <?php echo $fname ?> ;)</h1>
     <a href="#menu-hot" data-role="button" data-icon="info" >Check the Menu</a>
   </div>
 
@@ -85,7 +76,7 @@
     $slopeone->initSlopeOneTable('MySQL');
 
     $sql = "select s.item_id2 from slope_one s,rating_db u 
-          where u.user_id = 3 
+          where u.user_id = '$userid' 
           and s.item_id1 = u.item_id and s.item_id2 != u.item_id group by s.item_id2 order by sum(u.rating * s.times - s.rating)/sum(s.times) desc limit 10";
     if ($result = $mysqli->query($sql)) {
       if ($result->num_rows > 0){
