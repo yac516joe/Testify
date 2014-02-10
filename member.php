@@ -13,9 +13,15 @@
 
 <! -- Index Tab -- >
 <div data-role="page" id="index">
+  <?php
+    // if session 'cart' was set, count it, else set it to 0
+    $cartItemCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+  ?>
+
   <div data-role="header">
     <a href="#panel-01" data-role="button" data-icon="arrow-l" data-iconpos="notext">Personal Profile</a>
     <h1>Tastify</h1>
+    <a href="order.php" data-rel="dialog" data-transition="pop">Your Order<?php echo "({$cartItemCount})"; ?></a> 
   </div>
 
   <div class="panel left" data-role="panel" data-position="left" data-display="reveal" id="panel-01">  
@@ -29,6 +35,24 @@
   </div> 
 
   <div data-role="content">
+    <?php
+    // to prevent undefined index notice
+    $action = isset($_GET['action']) ? $_GET['action'] : "";
+    $name = isset($_GET['name']) ? $_GET['name'] : "";
+
+    if($action=='add'){
+      echo "<div>" . $name . " was added to your order.</div>";
+    }
+
+    if($action=='exists'){
+      echo "<div>" . $name . " already exists in your order.</div>";
+    }
+
+    if($action=='removed'){
+      echo "<div>" . $name . " was removed from cart.</div>";
+    }
+    ?>    
+
     <?php
       $mysqli = new mysqli("localhost", "root","","Tastify");
       if ($mysqli == false) {
@@ -104,7 +128,7 @@
                     <h2>" . $tmp2[2] . "</h2>
                     <p>£" . $tmp2[3] . "</p>
                     </a>
-                    <a href='#'>Add to Order</a>
+                    <a href='addToCart.php?id={$tmp2[0]}&name={$tmp2[2]}'>Add to Order</a>
                   </li>";
               }
             }
@@ -116,9 +140,12 @@
   </ul>
   </div>
 
-  <div data-role="footer">
+  <div data-role="footer" data-position="fixed">
     <div data-role="navbar">
-    </div>  
+      <ul>
+        <li> <a href="order.php" data-rel="dialog" data-transition="pop">Your Order <?php echo "({$cartItemCount})"; ?></a> </li>
+      </ul>
+    </div> 
   </div>
 </div>
 
@@ -152,7 +179,7 @@
                     <h2>" . $tmp2[2] . "</h2>
                     <p>£" . $tmp2[3] . "</p>
                     </a>
-                    <a href='#'>Add to Order</a>
+                    <a href='addToCart.php?id={$tmp2[0]}&name={$tmp2[2]}'>Add to Order</a>
                   </li>";
               }
             }
@@ -170,6 +197,11 @@
         <li> <a href="#menu-full"> Menu</a> </li>
       </ul>
     </div>  
+    <div data-role="navbar">
+      <ul>
+        <li> <a href="order.php" data-rel="dialog" data-transition="pop">Your Order <?php echo "({$cartItemCount})"; ?></a> </li>
+      </ul>
+    </div> 
   </div>
 
 </div> 
@@ -199,10 +231,10 @@
         if ($tmp = $mysqli->query($sql2)) {
           while ($tmp2 = $tmp->fetch_array()) {
             echo "<li><a href='#'>
-                    <h2>" . $tmp2[2] . "</h2>
+                    <h2>" .$tmp2[2] . "</h2>
                     <p>£" . $tmp2[3] . "</p>
                     </a>
-                    <a href='#'>Add to Order</a>
+                    <a href='addToCart.php?id={$tmp2[0]}&name={$tmp2[2]}'>Add to Order</a>
                   </li>";
           }
         }
@@ -225,6 +257,11 @@
         <li> <a href="" class="ui-btn-active ui-state-persist"f> Menu</a> </li>
       </ul>
     </div>  
+    <div data-role="navbar">
+      <ul>
+        <li> <a href="order.php" data-rel="dialog" data-transition="pop">Your Order<?php echo "({$cartItemCount})"; ?></a> </li>
+      </ul>
+    </div> 
   </div>
 </div>
   
