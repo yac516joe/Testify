@@ -40,17 +40,21 @@
     $action = isset($_GET['action']) ? $_GET['action'] : "";
     $name = isset($_GET['name']) ? $_GET['name'] : "";
 
+    echo "<div data-role='navbar' data-iconpos='left'>";
+
     if($action=='add'){
-      echo "<div>" . $name . " was added to your order.</div>";
+      echo "<li><a data-icon='info'>" . $name . " was added to your order.</a></li>";
     }
 
     if($action=='exists'){
-      echo "<div>" . $name . " already exists in your order.</div>";
+      echo "<li><a data-icon='info'>" . $name . " already exists in your order.</a></li>";
     }
 
     if($action=='removed'){
-      echo "<div>" . $name . " was removed from cart.</div>";
+      echo "<li><a data-icon='info'>" . $name . " was removed from your order.</a></li>";
     }
+
+    echo "</div>";
     ?>    
 
     <?php
