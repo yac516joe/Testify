@@ -11,32 +11,31 @@
   <! -- Index Tab -- >
   <div data-role="page" id="index">
     <div data-role="header">
-      <a href="#panel-01" data-role="button" data-icon="arrow-l" data-iconpos="notext">Personal Profile</a>
+      <a href="#panel-01" data-role="button" data-icon="info" data-iconpos="notext">Personal Profile</a>
       <h1>Tastify</h1>
     </div>
 
     <div class="panel left" data-role="panel" data-position="left" data-display="reveal" id="panel-01">  
       <ul>
+        <li><a href=""  data-icon="star">About Me</a></li>
         <li><a href=""  data-icon="alert">Report A Problem</a></li>
-        <li><a href=""  data-icon="alert">About Me</a></li>
       </ul>
     </div>  
 
     <div data-role="content">
-       <?php
+      <?php
         $mysqli = new mysqli("localhost", "root","","Tastify");
           if ($mysqli == false) {
             die("Error: Could not connect. " . mysql_connect_error());
           } 
       ?>   
-   
     </div>
 
     <div data-role="footer" data-position="fixed">
       <div data-role="navbar">
         <ul>
-          <li><a href="register.php" data-role="button" data-icon="plus">Register</a></li>
-          <li><a href="login.php" data-role="button" data-icon="star">Log In</a></li>
+          <li><a href="register.php" data-role="button">Sign Up</a></li>
+          <li><a href="login.php" data-role="button">Log In</a></li>
         </ul>
       </div>  
     </div>

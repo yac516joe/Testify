@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <title>Tastify</title> 
 <link rel="stylesheet" href="./css/jquery.mobile-1.3.1.css">
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
@@ -33,6 +34,7 @@
       if ($mysqli == false) {
         die("Error: Could not connect. " . mysql_connect_error());
       }
+      $dbc = mysqli_connect("localhost", "root","","Tastify");    
 
       if($_SESSION['username'] != null) {
         $username = $_SESSION['username'];
@@ -56,6 +58,10 @@
         echo "<h1>Please Log In First</h1>";
         echo '<meta http-equiv=REFRESH CONTENT=1;url=index.php>';
       }
+
+      $checkNewUser = "select * from rating_db where userid ='$userid'";
+      $NewUserResult = $mysqli->query($checkNewUser);
+
     ?>   
   </div>
 
@@ -91,10 +97,15 @@
     if ($result = $mysqli->query($sql)) {
       if ($result->num_rows > 0){
           while ($row = $result->fetch_array()) {
-            $sql2 = "select name from cuisine_db where id = ". $row[0];
+            $sql2 = "select * from cuisine_db where id = ". $row[0];
             if ($tmp = $mysqli->query($sql2)) {
               if ($tmp2 = $tmp->fetch_array()) {
-                echo "<li><a>". $tmp2[0] . "</a></li>";
+                echo "<li><a href='#'>
+                    <h2>" . $tmp2[2] . "</h2>
+                    <p>£" . $tmp2[3] . "</p>
+                    </a>
+                    <a href='#'>Add to Order</a>
+                  </li>";
               }
             }
           }
@@ -120,7 +131,7 @@
   </div>
 
   <div data-role="content">
-    <ol data-role="listview">
+    <ol data-role="listview" >
     <?php
       $sql = "select item_id, count(item_id) as cnt
               from rating_db 
@@ -134,10 +145,15 @@
       if ($result = $mysqli->query($sql)) {
         if ($result->num_rows > 0){
           while ($row = $result->fetch_array()) {
-            $sql2 = "select name from cuisine_db where id = ". $row[0];
+            $sql2 = "select * from cuisine_db where id = ". $row[0];
             if ($tmp = $mysqli->query($sql2)) {
               if ($tmp2 = $tmp->fetch_array()) {
-                echo "<li><a>". $tmp2[0] . "</a></li>";
+                echo "<li><a href='#'>
+                    <h2>" . $tmp2[2] . "</h2>
+                    <p>£" . $tmp2[3] . "</p>
+                    </a>
+                    <a href='#'>Add to Order</a>
+                  </li>";
               }
             }
           }
@@ -178,11 +194,16 @@
     if ($result->num_rows > 0) {
       while($row = $result->fetch_array()) {
         echo  "<div data-role='collapsible'><h4>" . $row[1] . "</h4>";
-        echo "<ul data-role='listview'>";
+        echo "<ul data-role='listview' data-inset='true'>";
         $sql2 = "select * from cuisine_db where category = " . $row[0];
         if ($tmp = $mysqli->query($sql2)) {
           while ($tmp2 = $tmp->fetch_array()) {
-            echo "<li><a href='#'>" . $tmp2[2] . "</a></li>";
+            echo "<li><a href='#'>
+                    <h2>" . $tmp2[2] . "</h2>
+                    <p>£" . $tmp2[3] . "</p>
+                    </a>
+                    <a href='#'>Add to Order</a>
+                  </li>";
           }
         }
         echo "</ul></div>";

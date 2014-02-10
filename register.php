@@ -30,7 +30,7 @@
 				// retrive and check input values
 				$inputError = false;
 				if ($inputError != true && empty($_POST['email'])) {
-					echo "Enter valid username <br>";
+					echo "Enter valid email <br>";
 					$inputError = true;
 				} else {
 					$email = $mysqli->escape_string($_POST['email']);
@@ -96,14 +96,28 @@
 
 					if (mysqli_num_rows($checkResult) == 0) {
 						if ($mysqli->query($sql) == true) {
-								echo "Registeration successful";
-								echo '<meta http-equiv=REFRESH CONTENT=1;url=login.php>';
-							} else {
+								echo "Registeration successful <br>";
+
+								$sql = "select * from user_db where email = '$email'";
+						        if ($result = $mysqli->query($sql)) {
+						          if ($result->num_rows > 0) {
+						            while($row = $result->fetch_array()) {
+						              echo $row[0] . " " . $row[1] . " "  . $row[3] . " "  . $row[4] . "<br>";
+						              
+						              $_SESSION['$userid']= $row[0];
+						            }
+						            $result->close();
+						          	} else {
+						            echo "No reords matching your query were found.";
+						          	}
+									echo '<meta http-equiv=REFRESH CONTENT=1;url=initialize.php>';
+								} else {
 								echo  $mysqli->error;
-							}
-					} else {
+								}	
+						} else {
 						echo "Username has already been taken, try another one";
 						$email = "";
+						}
 					}
 				}
 			}
@@ -111,8 +125,8 @@
 
 		<form method="POST" action="register.php" id="registerForm">
 			<div data-role="fieldcontain">
-				<label for="email">User Name:</label>
-			    <input type="text" name="email" id="email"   placeholder="At least 5 characters long" value="<?php if (!empty($email)) echo $email; ?>">
+				<label for="email">email:</label>
+			    <input type="email" name="email" id="email"   value="<?php if (!empty($email)) echo $email; ?>">
 			</div>
 			<div data-role="fieldcontain">
 			    <label for="password">Password:</label>

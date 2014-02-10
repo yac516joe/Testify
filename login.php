@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <title>Tastify</title> 
 <link rel="stylesheet" href="./css/jquery.mobile-1.3.1.css">
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
