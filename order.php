@@ -13,10 +13,9 @@ session_start();
 
 <body>
   <! -- Orders Tab -- >
-  <div data-role="page" id="index">
+  <div data-role="page" id="order">
     <div data-role="header">
-      <h1>Your Order</h1>
-      <a href="#" data-role="button" data-icon="arrow-r" >Submit the Order</a>
+      <h1>Order Details</h1>
     </div>
 
     <div data-role="content">
@@ -52,7 +51,12 @@ session_start();
 
                 $price_sum = $price_sum + $row[3];
                 }
+              echo "<li><p>In Total: £" . $price_sum . "</p></li>";
               echo "</ul>";
+              echo "<h5>Once make your mind, show this page to the waitress and click Next</h5>";
+              echo "</div><div data-role='footer' data-position='fixed'> <div data-role='navbar' data-iconpos='left'> <ul><li>";
+              echo "<a href='review.php' data-role='button' data-icon='arrow-r' data-transition='pop'>Next</a>" ;
+              echo "</li></ul></div>";
               $result->close();
             } else {
               echo "You haven't order anything yet";
@@ -69,11 +73,8 @@ session_start();
 
     <div data-role="footer" data-position="fixed">
       <div data-role="navbar">
-      <ul>
-        <li> <a>In Total: <?php echo $price_sum?></a> </li>
-      </ul>
       </div> 
     </div>
-  </div> 
+  </div>
 </body>
 </html>
