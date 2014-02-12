@@ -17,11 +17,13 @@ session_start();
   <div data-role="page" id="review">
     <div data-role="header">
       <a href="member.php" data-role="button" data-icon="arrow-l">Back</a>
-      <h1>Review Your Order</h1>      
+      <h1>How do you like it?</h1>      
     </div>
 
-    <div data-role="content">   
-      <h3>Review Page</h3>
+    <div data-role="content">
+      <div data-role='navbar' data-iconpos="left">   
+        <li><a data-icon="info">Come back after finish your dishes to review them!</a></li>
+      </div>
       <?php
         $mysqli = new mysqli("localhost", "root","","Tastify");
         if ($mysqli == false) {
@@ -42,12 +44,14 @@ session_start();
           if ($result = $mysqli->query($sql)) {
             if ($result->num_rows > 0) {
               $i = 0;
+              echo "<ul data-role='listview' data-inset='true' >";
               while($row = $result->fetch_array()) {
-                echo "<h4>" .$row[2] . "</h4>
-                    <div id='star-".$i."'></div>";
+                echo "<li><a><h2>" .$row[2] . "</h2>
+                    <div id='star-".$i."'></div></a></li>";
                 $i ++;
-              }              
-              echo "<h5>Review your items ,this help us learn your taste more accurately</h5>";
+              }     
+              echo "<li><p>Your rating will help us learn your taste more accurately</p></li>";     
+              echo "</ul>";    
               echo "</div><div data-role='footer' data-position='fixed'> <div data-role='navbar' data-iconpos='left'> <ul><li>";
               echo "<a href='review.php' data-role='button' data-icon='arrow-r' data-transition='pop'>Next</a>" ;
               echo "</li></ul></div>";
@@ -65,8 +69,6 @@ session_start();
     </div>
 
     <div data-role="footer" data-position="fixed">
-      <div data-role="navbar">
-      </div> 
     </div>
   </div>
 </body>
